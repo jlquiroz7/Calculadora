@@ -114,9 +114,9 @@
         <div class="pantalla" id="pantalla">0</div>
         <!-- Botones de acción (CA, C, =) -->
         <div class="botones-de-accion">
-            <button class="boton" onclick="sePresiono('CA')">CA</button>
-            <button class="boton" onclick="sePresiono('C')">C</button>
-            <button class="boton" onclick="sePresiono('=')">=</button>
+            <button id="boton-ca" class="boton" onclick="sePresiono('CA')">CA</button>
+            <button id="boton-c" class="boton" onclick="sePresiono('C')">C</button>
+            <button id="boton-igual" class="boton" onclick="sePresiono('=')">=</button>
         </div>
         <!-- Contenedor para los botones numéricos y de operaciones -->
         <div class="numeros-y-operaciones">
@@ -136,12 +136,13 @@
             </div>
             <!-- Botones de operaciones -->
             <div class="operadores">
-                <button class="boton" onclick="sePresiono('+')">+</button>
-                <button class="boton" onclick="sePresiono('-')">-</button>
-                <button class="boton" onclick="sePresiono('*')">*</button>
-                <button class="boton" onclick="sePresiono('/')">/</button>
+                <button id="boton-suma" class="boton" onclick="sePresiono('+')">+</button>
+                <button id="boton-resta" class="boton" onclick="sePresiono('-')">-</button>
+                <button id="boton-multiplicacion" class="boton" onclick="sePresiono('*')">*</button>
+                <button id="boton-division" class="boton" onclick="sePresiono('/')">/</button>
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
