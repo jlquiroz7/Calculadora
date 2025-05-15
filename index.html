@@ -55,6 +55,20 @@
             border-radius: 3px;
             font-size: 20px; /* Tamaño de fuente */
             cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+
+            background-position: center;
+            outline: none;
+            transition: background 0.24s;
+        }
+
+        .boton:hover {
+            background: #949293 radial-gradient(circle, transparent 1%, #949293 1%) center/15000%;
+        }
+
+        .boton:active {
+            background-color: #edeaeb;
+            background-size: 100%;
+            transition: background 0s;
         }
 
         /* Contenedor para los botones numéricos y de operaciones */
