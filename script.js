@@ -1,6 +1,4 @@
-// Sistema de gestión de calculadora
-
-// Inicialización de elementos
+// Elementos a Utilizar
 const pantalla = document.getElementById('pantalla');
 const botonCA = document.getElementById('boton-ca');
 const botonC = document.getElementById('boton-c');
@@ -11,12 +9,14 @@ const botonMultiplicacion = document.getElementById('boton-multiplicacion');
 const botonDivision = document.getElementById('boton-division');
 
 // Inicialización de variables
-let valorEnPantalla = '0';
+let valorEnPantalla = '';
 let operaciones = [];
 
-// Regex
+// Expresion regular para Validar los numeros   
 const regexNumero = /^[0-9]+$/;
-const regexOperacion = /^[+\-*/]$/;
+
+// Expresion regular para Validar los numeros
+const regexOperacion = /^[+\-*/]$/;                    
 
 // Funciones
 function sePresiono(tecla) {
@@ -29,9 +29,14 @@ function sePresiono(tecla) {
         valorEnPantalla += tecla;
         operaciones.push(tecla);
     } else if (tecla === '=') {
+        const ultimoCaracter = valorEnPantalla.slice(-1);
+        if (ultimoCaracter.match(regexOperacion)) {
+            // Con esto no permito presionar igual después de un cualquier operador
+            return;
+        }
         ejecutarOperaciones();
     } else if (tecla === 'CA') {
-        valorEnPantalla = '0';
+        valorEnPantalla = '';
         operaciones = [];
     } else if (tecla === 'C') {
         valorEnPantalla = valorEnPantalla.slice(0, -1);
@@ -41,7 +46,14 @@ function sePresiono(tecla) {
         }
         valorEnPantalla += '.';
     }
-    pantalla.textContent = valorEnPantalla;
+    // Mostrar el símbolo si la última tecla es operador, si no el último número
+    const ultimoCaracter = valorEnPantalla.slice(-1);
+    if (ultimoCaracter.match(regexOperacion)) {
+        pantalla.textContent = ultimoCaracter;
+    } else {
+        const valores = valorEnPantalla.split(/[+\-*/]/);
+        pantalla.textContent = valores[valores.length - 1] || '';
+    }
 }
 
 function ejecutarOperaciones() {

@@ -1,0 +1,104 @@
+/* Estilo para el contenedor principal de la calculadora */
+.division-calculadora {
+    
+}
+
+.calculadora {
+    width: 300px;
+    height: 450px;
+    background-color: #9f9f9f; /* Color de fondo gris */
+    border-radius: 15px; /* Bordes redondeados */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 5px solid #182019; /* Borde exterior */
+}
+
+/* Estilo para la pantalla de la calculadora */
+.pantalla {
+    width: 80%;
+    height: 60px;
+    background-color: #cfec58; /* Color de fondo amarillo claro */
+    margin: 10px;
+    text-align: right; /* Texto alineado a la derecha */
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 24px; /* Tamaño de fuente */
+    border-radius: 3px;
+    border: 4px solid #182019; /* Borde de la pantalla */
+}
+
+/* Estilo para los botones de acción (CA, C, =) */
+.botones-de-accion {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+.botones-de-accion button {
+    color: #bd7049; /* Color de texto */
+}
+.botones-de-accion button:nth-child(3) {
+    color: #000000; /* Color de texto del botón "=" */
+}
+
+/* Estilo general para los botones */
+.boton {
+    width: 50px;
+    height: 50px;
+    background-color: #edeaeb; /* Color de fondo gris claro */
+    border: 1px solid #a7a7a7; /* Borde de los botones */
+    border-radius: 3px;
+    font-size: 20px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+
+    background-position: center;
+    outline: none;
+    transition: background 0.24s;
+}
+
+.boton:hover {
+    background: #949293 radial-gradient(circle, transparent 1%, #949293 1%) center/15000%;
+}
+
+.boton:active {
+    background-color: #edeaeb;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+/* Contenedor para los botones numéricos y de operaciones */
+.numeros-y-operaciones {
+    width: 100%;
+    display: flex;
+}
+
+/* Estilo para los botones numéricos */
+.numeros {
+    width: 225px;
+    height: 290px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #515151; /* Color de fondo */
+    padding: 10px;
+    border-top-right-radius: 15px;
+    column-gap: 15px; /* Espacio entre columnas */
+    row-gap: 10px; /* Espacio entre filas */
+}
+.numeros button:nth-child(10) {
+    width: 116px; /* Botón "0" más ancho */
+}
+
+/* Estilo para los botones de operaciones */
+.operadores {
+    width: 75px;
+    height: 290px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 10px; /* Espacio entre filas */
+}
