@@ -7,10 +7,13 @@ const botonSuma = document.getElementById('boton-suma');
 const botonResta = document.getElementById('boton-resta');
 const botonMultiplicacion = document.getElementById('boton-multiplicacion');
 const botonDivision = document.getElementById('boton-division');
+const listaHistorial = document.getElementById('historial');
 
 // Inicialización de variables
 let valorEnPantalla = '';
 let operaciones = [];
+let historialDeOperaciones = [];
+let operacionActual = '';
 
 // Expresion regular para Validar los numeros   
 const regexNumero = /^[0-9]+$/;
@@ -25,26 +28,34 @@ function sePresiono(tecla) {
     }
     if (tecla.match(regexNumero)) {
         valorEnPantalla += tecla;
+        operacionActual += tecla;
     } else if (tecla.match(regexOperacion)) {
         valorEnPantalla += tecla;
         operaciones.push(tecla);
+        operacionActual += ` ${tecla} `;
     } else if (tecla === '=') {
         const ultimoCaracter = valorEnPantalla.slice(-1);
         if (ultimoCaracter.match(regexOperacion)) {
             // Con esto no permito presionar igual después de un cualquier operador
             return;
         }
-        ejecutarOperaciones();
+        const resultado = ejecutarOperaciones();
+        historialDeOperaciones.unshift(operacionActual + ' = ' + resultado);
+        operacionActual = `${resultado}`;
+        mostrarHistorial();
     } else if (tecla === 'CA') {
         valorEnPantalla = '';
         operaciones = [];
+        operacionActual = '';
     } else if (tecla === 'C') {
         valorEnPantalla = valorEnPantalla.slice(0, -1);
+        operacionActual = operacionActual.slice(0, -1);
     } else if (tecla === '.') {
         if (validarUltimoValorIncluyePunto()) {
             return;
         }
         valorEnPantalla += '.';
+        operacionActual += '.';
     }
     // Mostrar el símbolo si la última tecla es operador, si no el último número
     const ultimoCaracter = valorEnPantalla.slice(-1);
@@ -54,6 +65,7 @@ function sePresiono(tecla) {
         const valores = valorEnPantalla.split(/[+\-*/]/);
         pantalla.textContent = valores[valores.length - 1] || '';
     }
+    console.log(operacionActual);
 }
 
 function ejecutarOperaciones() {
@@ -69,6 +81,7 @@ function ejecutarOperaciones() {
     }
     valorEnPantalla = `${resultado}`;
     operaciones = [];
+    return resultado;
 }
 
 function ejecutarOperacion(operacion, valor1, valor2) {
@@ -97,4 +110,13 @@ function validarUltimoValorIncluyePunto() {
         return true;
     }
     return false;
+}
+
+function mostrarHistorial() {
+    listaHistorial.innerHTML = '';
+    historialDeOperaciones.forEach(operacion => {
+        const li = document.createElement('li');
+        li.textContent = operacion;
+        listaHistorial.appendChild(li);
+    });
 }
