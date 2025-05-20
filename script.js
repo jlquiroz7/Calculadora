@@ -36,7 +36,11 @@ function sePresiono(tecla) {
     } else if (tecla === '=') {
         const ultimoCaracter = valorEnPantalla.slice(-1);
         if (ultimoCaracter.match(regexOperacion)) {
-            // Con esto no permito presionar igual después de un cualquier operador
+            // Con esto no permito presionar igual después de cualquier operador
+            return;
+        }
+        if (operacionActual === '') {
+            // Con esto no permito presionar igual sin ninguna operación
             return;
         }
         const resultado = ejecutarOperaciones();
@@ -120,3 +124,22 @@ function mostrarHistorial() {
         listaHistorial.appendChild(li);
     });
 }
+
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+    let tecla = '';
+    switch (key) {
+        case 'Enter':
+            tecla = '=';
+            break;
+        case 'Backspace':
+            tecla = 'C';
+            break;
+        case 'Delete':
+            tecla = 'CA';
+            break;
+        default:
+            tecla = key;
+    }
+    sePresiono(tecla);
+});
