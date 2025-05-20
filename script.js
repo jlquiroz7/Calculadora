@@ -126,6 +126,19 @@ function mostrarHistorial() {
 }
 
 document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Backspace') {
+        return;
+    }
+    const tecla = convertirTecla(event);
+    sePresiono(tecla);
+});
+
+document.addEventListener('keypress', (event) => {
+    const tecla = convertirTecla(event);
+    sePresiono(tecla);
+});
+
+function convertirTecla(event) {
     const key = event.key;
     let tecla = '';
     switch (key) {
@@ -141,5 +154,5 @@ document.addEventListener('keydown', (event) => {
         default:
             tecla = key;
     }
-    sePresiono(tecla);
-});
+    return tecla;
+}
