@@ -24,13 +24,13 @@ const regexOperacion = /^[+\-*/]$/;
 // Funciones
 function sePresiono(tecla) {
     if (valorEnPantalla === '0') {
-        valorEnPantalla = '';
+        actualizarValorEnPantalla('');
     }
     if (tecla.match(regexNumero)) {
-        valorEnPantalla += tecla;
+        actualizarValorEnPantalla(valorEnPantalla + tecla);
         operacionActual += tecla;
     } else if (tecla.match(regexOperacion)) {
-        valorEnPantalla += tecla;
+        actualizarValorEnPantalla(valorEnPantalla + tecla);
         operaciones.push(tecla);
         operacionActual += ` ${tecla} `;
     } else if (tecla === '=') {
@@ -48,17 +48,17 @@ function sePresiono(tecla) {
         operacionActual = `${resultado}`;
         mostrarHistorial();
     } else if (tecla === 'CA') {
-        valorEnPantalla = '';
+        actualizarValorEnPantalla('');
         operaciones = [];
         operacionActual = '';
     } else if (tecla === 'C') {
-        valorEnPantalla = valorEnPantalla.slice(0, -1);
+        actualizarValorEnPantalla(valorEnPantalla.slice(0, -1));
         operacionActual = operacionActual.slice(0, -1);
     } else if (tecla === '.') {
         if (validarUltimoValorIncluyePunto()) {
             return;
         }
-        valorEnPantalla += '.';
+        actualizarValorEnPantalla(valorEnPantalla + '.');
         operacionActual += '.';
     }
     // Mostrar el símbolo si la última tecla es operador, si no el último número
@@ -69,7 +69,6 @@ function sePresiono(tecla) {
         const valores = valorEnPantalla.split(/[+\-*/]/);
         pantalla.textContent = valores[valores.length - 1] || '';
     }
-    console.log(operacionActual);
 }
 
 function ejecutarOperaciones() {
@@ -83,28 +82,22 @@ function ejecutarOperaciones() {
         const siguienteValor = parseFloat(valores[i + 1]);
         resultado = ejecutarOperacion(operaciones[i], resultado, siguienteValor);
     }
-    valorEnPantalla = `${resultado}`;
+    actualizarValorEnPantalla(`${resultado}`);
     operaciones = [];
     return resultado;
 }
 
 function ejecutarOperacion(operacion, valor1, valor2) {
-    let resultado;
     switch (operacion) {
         case '+':
-            resultado = valor1 + valor2;
-            break;
+            return valor1 + valor2;
         case '-':
-            resultado = valor1 - valor2;
-            break;
+            return valor1 - valor2;
         case '*':
-            resultado = valor1 * valor2;
-            break;
+            return valor1 * valor2;
         case '/':
-            resultado = valor1 / valor2;
-            break;
+            return valor1 / valor2;
     }
-    return resultado;
 }
 
 function validarUltimoValorIncluyePunto() {
@@ -155,4 +148,20 @@ function convertirTecla(event) {
             tecla = key;
     }
     return tecla;
+}
+
+function actualizarValorEnPantalla(valor) {
+    valorEnPantalla = valor;
+    actualizarTamañoDeTextoEnPantalla();
+}
+
+function actualizarTamañoDeTextoEnPantalla() {
+    const longitud = valorEnPantalla.length;
+    if (longitud >= 20) {
+        pantalla.style.fontSize = '16px';
+    } else if (longitud >= 17) {
+        pantalla.style.fontSize = '20px';
+    } else {
+        pantalla.style.fontSize = '24px';
+    }
 }
